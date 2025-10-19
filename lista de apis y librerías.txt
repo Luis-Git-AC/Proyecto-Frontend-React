@@ -1,0 +1,19 @@
+NewsAPI https://newsapi.org  (NOTICIAS)
+
+CoinGecko API https://www.coingecko.com/en/api/documentation (DATOS)
+
+
+
+React Router DOM npm install react-router-dom
+Axios npm install axios
+PropTypes npm install prop-types
+React Icons npm install react-icons
+Chakra UI npm install @chakra-ui/react @emotion/react @emotion/styled framer-motion
+dayjs o date-fns npm install dayjs
+uuid npm install uuid
+dotenv npm install dotenv
+Linter y formateador npm install --save-dev eslint prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-react eslint-plugin-react-hooks
+
+
+
+
