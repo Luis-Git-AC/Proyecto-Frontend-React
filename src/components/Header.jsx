@@ -23,8 +23,8 @@ function Header() {
           <Link to="/criptos" className={isActive('/criptos')}>
             Criptos
           </Link>
-          <Link to="/favoritos" className={isActive('/favoritos')}>
-            Favoritos
+          <Link to="/portfolio" className={isActive('/portfolio')}>
+            Portfolio
           </Link>
         </nav>
 

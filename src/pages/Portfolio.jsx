@@ -39,7 +39,7 @@ function Portfolio() {
       {portfolio.length === 0 ? (
         <section className="portfolio-empty" role="status">
           <h2>No hay criptomonedas guardadas</h2>
-          <p>Visita el listado de criptos y añade tus favoritos para construir tu portfolio.</p>
+          <p>Visita el listado de criptos y añade tus favoritas para construir tu portfolio.</p>
           <a href="/criptos" className="portfolio-link">
             Ir al listado de criptomonedas
           </a>

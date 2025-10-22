@@ -4,7 +4,7 @@ import './styles/globals.css'
 import Home from './pages/Home'
 import Criptos from './pages/Criptos'
 import DetalleNoticia from './pages/DetalleNoticia'
-import Favoritos from './pages/Favoritos'
+import Portfolio from './pages/Portfolio'
 
 import Layout from './components/Layout'
 
@@ -16,7 +16,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/criptos" element={<Criptos />} />
           <Route path="/noticia/:id" element={<DetalleNoticia />} />
-          <Route path="/favoritos" element={<Favoritos />} />
+          <Route path="/portfolio" element={<Portfolio />} />
         </Routes>
       </Layout>
     </Router>
