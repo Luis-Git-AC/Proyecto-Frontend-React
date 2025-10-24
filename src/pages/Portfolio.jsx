@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import CoinCard from '../components/CoinCard'
-import usePortfolio from '../context/usePortfolio'
+import usePortfolio from '../hooks/usePortfolio'
 
 function formatCurrency(value) {
   return new Intl.NumberFormat('en-US', {

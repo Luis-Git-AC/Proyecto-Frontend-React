@@ -1,6 +1,6 @@
 import useCriptos from '../hooks/useCriptos'
 import CoinCard from '../components/CoinCard'
-import usePortfolio from '../context/usePortfolio'
+import usePortfolio from '../hooks/usePortfolio'
 
 function Criptos() {
   const {
