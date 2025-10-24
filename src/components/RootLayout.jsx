@@ -1,11 +1,12 @@
+import { Outlet } from 'react-router-dom'
 import Header from './Header'
 
-function Layout({ children }) {
+function RootLayout() {
   return (
     <div className="app-layout">
       <Header />
       <main className="main-content">
-        {children}
+        <Outlet />
       </main>
       <footer className="footer">
         <p>&copy; 2025 CriptoNews</p>
@@ -14,4 +15,4 @@ function Layout({ children }) {
   )
 }
 
-export default Layout
+export default RootLayout

@@ -6,19 +6,19 @@ import Criptos from './pages/Criptos'
 import DetalleNoticia from './pages/DetalleNoticia'
 import Portfolio from './pages/Portfolio'
 
-import Layout from './components/Layout'
+import RootLayout from './components/RootLayout'
 
 function App() {
   return (
     <Router>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/criptos" element={<Criptos />} />
-          <Route path="/noticia/:id" element={<DetalleNoticia />} />
-          <Route path="/portfolio" element={<Portfolio />} />
-        </Routes>
-      </Layout>
+      <Routes>
+        <Route path="/" element={<RootLayout />}>
+          <Route index element={<Home />} />
+          <Route path="criptos" element={<Criptos />} />
+          <Route path="noticia/:id" element={<DetalleNoticia />} />
+          <Route path="portfolio" element={<Portfolio />} />
+        </Route>
+      </Routes>
     </Router>
   )
 }
