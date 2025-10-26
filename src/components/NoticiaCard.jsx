@@ -1,3 +1,5 @@
+import styles from './NoticiaCard.module.css'
+
 function NoticiaCard({ noticia }) {
   const {
     titulo,
@@ -8,37 +10,51 @@ function NoticiaCard({ noticia }) {
   } = noticia
 
   const formatearFecha = (fecha) => {
-    return new Date(fecha).toLocaleDateString('es-ES', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    })
+    const date = new Date(fecha)
+    const now = new Date()
+    const diffMs = now - date
+    const diffMins = Math.floor(diffMs / 60000)
+    const diffHours = Math.floor(diffMs / 3600000)
+    const diffDays = Math.floor(diffMs / 86400000)
+
+    if (diffMins < 60) {
+      return `${diffMins}m ago`
+    } else if (diffHours < 24) {
+      return `${diffHours}h ago`
+    } else if (diffDays < 7) {
+      return `${diffDays}d ago`
+    } else {
+      return date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric'
+      })
+    }
   }
 
   return (
-    <article className="noticia-card">
-      <a href={noticia.url} target="_blank" rel="noopener noreferrer" className="card-link">
-        <div className="card-image">
+    <article className={styles.card}>
+      <a href={noticia.url} target="_blank" rel="noopener noreferrer" className={styles.cardLink}>
+        <div className={styles.cardImage}>
           {imagen ? (
             <img src={imagen} alt={titulo} />
           ) : (
-            <div className="image-placeholder">
+            <div className={styles.imagePlaceholder}>
               {moneda}
             </div>
           )}
         </div>
         
-        <div className="card-content">
-          <div className="card-header">
-            <span className="moneda-tag">{moneda}</span>
-            <span className="fecha">{formatearFecha(fecha)}</span>
+        <div className={styles.cardContent}>
+          <div className={styles.cardHeader}>
+            <span className={styles.monedaTag}>{moneda}</span>
+            <span className={styles.fecha}>{formatearFecha(fecha)}</span>
           </div>
           
-          <h3 className="titulo">{titulo}</h3>
-          <p className="descripcion">{descripcion}</p>
+          <h3 className={styles.titulo}>{titulo}</h3>
+          <p className={styles.descripcion}>{descripcion}</p>
           
-          <div className="card-footer">
-            <span className="leer-mas">Leer artículo completo →</span>
+          <div className={styles.cardFooter}>
+            <span className={styles.leerMas}>Leer artículo completo →</span>
           </div>
         </div>
       </a>

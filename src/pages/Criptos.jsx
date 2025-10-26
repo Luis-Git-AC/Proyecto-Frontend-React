@@ -1,6 +1,8 @@
 import useCriptos from '../hooks/useCriptos'
 import CoinCard from '../components/CoinCard'
 import usePortfolio from '../hooks/usePortfolio'
+import { SearchForm } from '../components/SearchForm'
+import styles from './Criptos.module.css'
 
 function Criptos() {
   const {
@@ -13,10 +15,6 @@ function Criptos() {
     lastUpdated
   } = useCriptos()
   const { toggleCoin, isInPortfolio } = usePortfolio()
-
-  const handleSearchChange = (event) => {
-    setQuery(event.target.value)
-  }
 
   const handleRefresh = () => {
     if (!loading) {
@@ -32,31 +30,24 @@ function Criptos() {
     : null
 
   return (
-    <div className="page-container">
-      <section className="crypto-header">
+    <div className={styles.container}>
+      <section className={styles.cryptoHeader}>
         <div>
           <h1>Criptomonedas Top 20</h1>
           <p>Datos en tiempo real desde CoinGecko</p>
         </div>
 
-        <div className="crypto-actions">
-          <div className="crypto-search">
-            <label htmlFor="crypto-search" className="sr-only">
-              Buscar criptomoneda
-            </label>
-            <input
-              id="crypto-search"
-              type="search"
-              value={query}
-              onChange={handleSearchChange}
-              placeholder="Buscar por nombre o símbolo"
-              aria-label="Buscar criptomoneda"
-            />
-          </div>
+        <div className={styles.cryptoActions}>
+          <SearchForm
+            onSearch={setQuery}
+            placeholder="Buscar por nombre o símbolo"
+            label="Buscar criptomoneda"
+            defaultValue={query}
+          />
 
           <button
             type="button"
-            className="btn-refresh"
+            className={styles.btnRefresh}
             onClick={handleRefresh}
             disabled={loading}
           >
@@ -66,13 +57,13 @@ function Criptos() {
       </section>
 
       {lastUpdatedLabel && (
-        <p className="crypto-last-updated">
+        <p className={styles.cryptoLastUpdated}>
           Última actualización: <strong>{lastUpdatedLabel}</strong>
         </p>
       )}
 
       {error && (
-        <div className="crypto-error" role="alert">
+        <div className={styles.cryptoError} role="alert">
           <p>{error}</p>
           <button type="button" onClick={handleRefresh} disabled={loading}>
             Reintentar
@@ -81,9 +72,9 @@ function Criptos() {
       )}
 
       {loading && !filteredCoins.length ? (
-        <div className="crypto-loading">Cargando datos…</div>
+        <div className={styles.cryptoLoading}>Cargando datos…</div>
       ) : (
-        <div className="crypto-grid" role="list">
+        <div className={styles.cryptoGrid} role="list">
           {filteredCoins.map((coin) => (
             <CoinCard
               key={coin.id}
@@ -96,7 +87,7 @@ function Criptos() {
       )}
 
       {!loading && !error && filteredCoins.length === 0 && (
-        <p className="crypto-empty">No se encontraron criptomonedas para tu búsqueda.</p>
+        <p className={styles.cryptoEmpty}>No se encontraron criptomonedas para tu búsqueda.</p>
       )}
     </div>
   )

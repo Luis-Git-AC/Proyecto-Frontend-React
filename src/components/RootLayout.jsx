@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import Header from './Header'
+import Footer from './Footer'
 
 function RootLayout() {
   return (
@@ -8,9 +9,7 @@ function RootLayout() {
       <main className="main-content">
         <Outlet />
       </main>
-      <footer className="footer">
-        <p>&copy; 2025 CriptoNews</p>
-      </footer>
+      <Footer />
     </div>
   )
 }

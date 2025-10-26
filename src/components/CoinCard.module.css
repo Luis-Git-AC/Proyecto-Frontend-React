@@ -1,0 +1,132 @@
+.card {
+  background: var(--bg-secondary);
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: relative;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+  border-color: rgba(102, 126, 234, 0.5);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.identity {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.rank {
+  background: rgba(102, 126, 234, 0.2);
+  color: var(--color-secondary);
+  border-radius: var(--radius-full);
+  padding: 0.25rem 0.8rem;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  font-family: var(--font-family-mono);
+}
+
+.image {
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  background: var(--bg-tertiary);
+  object-fit: cover;
+}
+
+.name {
+  font-size: var(--font-size-xl);
+  color: var(--text-primary);
+}
+
+.symbol {
+  color: var(--text-tertiary);
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.5px;
+}
+
+.favorite {
+  border: none;
+  background: rgba(102, 126, 234, 0.15);
+  color: var(--text-secondary);
+  border-radius: var(--radius-full);
+  padding: 0.35rem 0.9rem;
+  font-size: var(--font-size-base);
+  cursor: pointer;
+  transition: background var(--transition-fast), transform var(--transition-fast), color var(--transition-fast);
+}
+
+.favorite:hover {
+  background: rgba(102, 126, 234, 0.25);
+  transform: translateY(-2px);
+  color: var(--text-primary);
+}
+
+.favoriteActive {
+  background: rgba(251, 191, 36, 0.2);
+  color: var(--color-secondary);
+  border: 1px solid rgba(251, 191, 36, 0.4);
+}
+
+.favoriteActive:hover {
+  background: rgba(251, 191, 36, 0.3);
+}
+
+.body {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.price {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.change {
+  font-weight: 600;
+  font-size: var(--font-size-lg);
+}
+
+.changePositive {
+  color: var(--color-success);
+}
+
+.changeNegative {
+  color: var(--color-error);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.label {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.value {
+  font-weight: 600;
+  color: var(--text-primary);
+}

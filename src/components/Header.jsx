@@ -1,22 +1,25 @@
 import { Link, useLocation } from 'react-router-dom'
+import styles from './Header.module.css'
 
 function Header() {
   const location = useLocation()
 
   const isActive = (path) => {
-    return location.pathname === path ? 'nav-link active' : 'nav-link'
+    return location.pathname === path
+      ? `${styles.navLink} ${styles.navLinkActive}` //check
+      : styles.navLink
   }
 
   return (
-    <header className="header">
-      <div className="header-container">
-        <div className="logo">
+    <header className={styles.header}>
+      <div className={styles.container}>
+        <div className={styles.logo}>
           <Link to="/">
             <h1>CriptoNews</h1>
           </Link>
         </div>
         
-        <nav className="navigation">
+        <nav className={styles.navigation}>
           <Link to="/" className={isActive('/')}>
             Home
           </Link>
@@ -27,11 +30,6 @@ function Header() {
             Portfolio
           </Link>
         </nav>
-
-        <div className="header-actions">
-          <button className="search-btn">Buscar</button>
-          <button className="theme-btn">Tema</button>
-        </div>
       </div>
     </header>
   )

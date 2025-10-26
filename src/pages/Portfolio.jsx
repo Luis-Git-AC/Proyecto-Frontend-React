@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import CoinCard from '../components/CoinCard'
 import usePortfolio from '../hooks/usePortfolio'
+import styles from './Portfolio.module.css'
 
 function formatCurrency(value) {
   return new Intl.NumberFormat('en-US', {
@@ -18,18 +19,18 @@ function Portfolio() {
   }, [portfolio])
 
   return (
-    <div className="page-container portfolio-page">
-      <header className="portfolio-header">
+    <div className={styles.container}>
+      <header className={styles.portfolioHeader}>
         <div>
           <h1>Portfolio</h1>
           <p>Administra tus criptomonedas favoritas y consulta su evolución.</p>
         </div>
         {portfolio.length > 0 && (
-          <div className="portfolio-summary">
-            <span className="portfolio-total">
+          <div className={styles.portfolioSummary}>
+            <span className={styles.portfolioTotal}>
               Valor estimado: <strong>{formatCurrency(totalValue)}</strong>
             </span>
-            <button type="button" className="portfolio-clear" onClick={clearPortfolio}>
+            <button type="button" className={styles.portfolioClear} onClick={clearPortfolio}>
               Vaciar portfolio
             </button>
           </div>
@@ -37,15 +38,15 @@ function Portfolio() {
       </header>
 
       {portfolio.length === 0 ? (
-        <section className="portfolio-empty" role="status">
+        <section className={styles.portfolioEmpty} role="status">
           <h2>No hay criptomonedas guardadas</h2>
           <p>Visita el listado de criptos y añade tus favoritas para construir tu portfolio.</p>
-          <a href="/criptos" className="portfolio-link">
+          <a href="/criptos" className={styles.portfolioLink}>
             Ir al listado de criptomonedas
           </a>
         </section>
       ) : (
-        <section className="crypto-grid" role="list">
+        <section className={styles.cryptoGrid} role="list">
           {portfolio.map((coin) => (
             <CoinCard
               key={coin.id}
