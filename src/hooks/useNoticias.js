@@ -1,78 +1,77 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
+import { fetchCryptoPanicNews } from '../services/cryptoPanic'
 
-const MOCK_NOTICIAS = [
-  {
-    id: 1,
-    titulo: "Bitcoin alcanza nuevo máximo histórico de $75,000",
-    descripcion: "La criptomoneda líder continúa su rally alcista impulsada por la adopción institucional y las expectativas del ETF.",
-    fecha: "2025-10-20T10:30:00Z",
-    moneda: "BTC",
-    imagen: null,
-    contenido: "Bitcoin ha superado la barrera de los $75,000 por primera vez en su historia..."
-  },
-  {
-    id: 2,
-    titulo: "Ethereum 2.0 completa su actualización más importante",
-    descripcion: "La red Ethereum implementa mejoras significativas en escalabilidad y eficiencia energética.",
-    fecha: "2025-10-19T15:45:00Z",
-    moneda: "ETH",
-    imagen: null,
-    contenido: "La actualización de Ethereum 2.0 marca un hito importante en el desarrollo..."
-  },
-  {
-    id: 3,
-    titulo: "Cardano lanza nueva funcionalidad DeFi",
-    descripcion: "La blockchain de Cardano introduce contratos inteligentes avanzados para finanzas descentralizadas.",
-    fecha: "2025-10-18T08:20:00Z",
-    moneda: "ADA",
-    imagen: null,
-    contenido: "Cardano expande su ecosistema DeFi con nuevas características..."
-  },
-  {
-    id: 4,
-    titulo: "Regulación crypto: Nuevas directivas europeas",
-    descripcion: "La Unión Europea establece un marco regulatorio más claro para las criptomonedas.",
-    fecha: "2025-10-17T12:15:00Z",
-    moneda: "General",
-    imagen: null,
-    contenido: "Las nuevas regulaciones europeas buscan proporcionar claridad..."
-  },
-  {
-    id: 5,
-    titulo: "Solana supera expectativas en velocidad de transacciones",
-    descripcion: "La red Solana procesa más de 50,000 transacciones por segundo en pruebas recientes.",
-    fecha: "2025-10-16T14:30:00Z",
-    moneda: "SOL",
-    imagen: null,
-    contenido: "Solana demuestra su capacidad técnica superior..."
+const CACHE_KEY = 'cryptopanic_news_cache_v1'
+const CACHE_TTL_MS = 30 * 60 * 1000
+
+function readCache() {
+  try {
+    const raw = sessionStorage.getItem(CACHE_KEY)
+    if (!raw) return null
+    const parsed = JSON.parse(raw)
+    if (!parsed?.timestamp || !parsed?.data) return null
+    const isExpired = Date.now() - parsed.timestamp > CACHE_TTL_MS
+    return isExpired ? null : parsed
+  } catch (err) {
+    console.warn('No se pudo leer la cache de noticias:', err)
+    return null
   }
-]
+}
+
+function writeCache(data) {
+  try {
+    const payload = JSON.stringify({ data, timestamp: Date.now() })
+    sessionStorage.setItem(CACHE_KEY, payload)
+  } catch (err) {
+    console.warn('No se pudo guardar la cache de noticias:', err)
+  }
+}
 
 function useNoticias() {
   const [noticias, setNoticias] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [filtroMoneda, setFiltroMoneda] = useState('todas')
+  const [lastUpdated, setLastUpdated] = useState(null)
 
-  useEffect(() => {
-    const cargarNoticias = async () => {
-      try {
-        setLoading(true)
-        setError(null)
-        
-        await new Promise(resolve => setTimeout(resolve, 1000))
-        
-        setNoticias(MOCK_NOTICIAS)
-      } catch (err) {
-        setError('Error al cargar las noticias')
-        console.error('Error en useNoticias:', err)
-      } finally {
-        setLoading(false)
-      }
+  const loadNews = useCallback(async ({ ignoreCache = false } = {}) => {
+    const cached = !ignoreCache ? readCache() : null
+
+    if (cached) {
+      setNoticias(cached.data)
+      setLastUpdated(cached.timestamp)
+      return
     }
 
-    cargarNoticias()
+    const controller = new AbortController()
+
+    setLoading(true)
+    setError(null)
+
+    try {
+      const data = await fetchCryptoPanicNews({ signal: controller.signal })
+      setNoticias(data)
+      const timestamp = Date.now()
+      setLastUpdated(timestamp)
+      writeCache(data)
+    } catch (err) {
+      if (err.name === 'AbortError') return
+      console.error('Error al obtener noticias:', err)
+      setError(err.message ?? 'Error al obtener noticias')
+    } finally {
+      setLoading(false)
+    }
+
+    return () => controller.abort()
   }, [])
+
+  useEffect(() => {
+    loadNews()
+  }, [loadNews])
+
+  const refresh = useCallback(() => {
+    loadNews({ ignoreCache: true })
+  }, [loadNews])
 
   const noticiasFiltradas = noticias.filter(noticia => {
     if (filtroMoneda === 'todas') return true
@@ -97,7 +96,9 @@ function useNoticias() {
     obtenerNoticiaPorId,
     cambiarFiltroMoneda,
     monedasDisponibles,
-    totalNoticias: noticias.length
+    totalNoticias: noticias.length,
+    refresh,
+    lastUpdated
   }
 }
 

@@ -3,7 +3,6 @@ import './styles/globals.css'
 
 import Home from './pages/Home'
 import Criptos from './pages/Criptos'
-import DetalleNoticia from './pages/DetalleNoticia'
 import Portfolio from './pages/Portfolio'
 
 import RootLayout from './components/RootLayout'
@@ -15,7 +14,6 @@ function App() {
         <Route path="/" element={<RootLayout />}>
           <Route index element={<Home />} />
           <Route path="criptos" element={<Criptos />} />
-          <Route path="noticia/:id" element={<DetalleNoticia />} />
           <Route path="portfolio" element={<Portfolio />} />
         </Route>
       </Routes>

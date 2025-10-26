@@ -1,14 +1,10 @@
-import { Link } from 'react-router-dom'
-
 function NoticiaCard({ noticia }) {
   const {
-    id,
     titulo,
     descripcion,
     fecha,
     imagen,
-    moneda,
-    esFavorito = false
+    moneda
   } = noticia
 
   const formatearFecha = (fecha) => {
@@ -19,13 +15,9 @@ function NoticiaCard({ noticia }) {
     })
   }
 
-  const handleFavorito = (e) => {
-    e.preventDefault()
-  }
-
   return (
     <article className="noticia-card">
-      <Link to={`/noticia/${id}`} className="card-link">
+      <a href={noticia.url} target="_blank" rel="noopener noreferrer" className="card-link">
         <div className="card-image">
           {imagen ? (
             <img src={imagen} alt={titulo} />
@@ -46,18 +38,10 @@ function NoticiaCard({ noticia }) {
           <p className="descripcion">{descripcion}</p>
           
           <div className="card-footer">
-            <span className="leer-mas">Leer más →</span>
+            <span className="leer-mas">Leer artículo completo →</span>
           </div>
         </div>
-      </Link>
-      
-      <button 
-        className={`btn-favorito ${esFavorito ? 'favorito' : ''}`}
-        onClick={handleFavorito}
-        title={esFavorito ? 'Quitar de favoritos' : 'Agregar a favoritos'}
-      >
-        {esFavorito ? '★' : '☆'}
-      </button>
+      </a>
     </article>
   )
 }

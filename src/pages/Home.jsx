@@ -1,20 +1,36 @@
+import useNoticias from '../hooks/useNoticias'
+import NoticiaCard from '../components/NoticiaCard'
+
 function Home() {
+  const { noticias, loading, error } = useNoticias()
+
   return (
     <div className="page-container">
-      <h1>Mensaje de bienvenida</h1>
-      <p>Las últimas noticias y tendencias</p>
-      <div className="hero-section">
-        <h2>Mantente al día</h2>
-        <p>Descubre las últimas noticias sobre Bitcoin, Ethereum ......</p>
-        <div style={{marginTop: '2rem'}}>
-          <h3>Enlaces de prueba:</h3>
-          <ul>
-            <li><a href="/noticia/1">Ver Noticia #1</a></li>
-            <li><a href="/noticia/bitcoin-precio">Ver Noticia Bitcoin</a></li>
-            <li><a href="/noticia/ethereum-actualización">Ver Noticia Ethereum</a></li>
-          </ul>
-        </div>
+      <div className="news-header">
+        <h1>Últimas Noticias Crypto</h1>
+        <p>Las noticias más recientes del mundo de las criptomonedas</p>
       </div>
+
+      {error && (
+        <div className="crypto-error" role="alert">
+          <p>{error}</p>
+          <p>Por favor, recarga la página para intentar nuevamente.</p>
+        </div>
+      )}
+
+      {loading && !noticias.length ? (
+        <div className="crypto-loading">Cargando noticias…</div>
+      ) : (
+        <div className="crypto-grid" role="list">
+          {noticias.map((noticia) => (
+            <NoticiaCard key={noticia.id} noticia={noticia} />
+          ))}
+        </div>
+      )}
+
+      {!loading && !error && noticias.length === 0 && (
+        <p className="crypto-empty">No se encontraron noticias disponibles.</p>
+      )}
     </div>
   )
 }
