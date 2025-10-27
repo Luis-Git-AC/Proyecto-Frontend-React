@@ -2,7 +2,20 @@ import { useState, useMemo } from 'react'
 import useNoticias from '../hooks/useNoticias'
 import NoticiaCard from '../components/NoticiaCard'
 import { SearchForm } from '../components/SearchForm'
+import WorldClocks from '../components/WorldClocks'
 import styles from './Home.module.css'
+
+const TIMEZONES_LEFT = [
+  { city: 'Nueva York', zone: 'America/New_York', flag: '🇺🇸' },
+  { city: 'Londres', zone: 'Europe/London', flag: '🇬🇧' },
+  { city: 'Berlín', zone: 'Europe/Berlin', flag: '🇩🇪' }
+]
+
+const TIMEZONES_RIGHT = [
+  { city: 'Tokio', zone: 'Asia/Tokyo', flag: '🇯🇵' },
+  { city: 'Hong Kong', zone: 'Asia/Hong_Kong', flag: '🇭🇰' },
+  { city: 'Sídney', zone: 'Australia/Sydney', flag: '🇦🇺' }
+]
 
 function Home() {
   const { noticias, loading, error } = useNoticias()
@@ -33,30 +46,38 @@ function Home() {
         label="Buscar noticias"
       />
 
-      {error && (
-        <div className={styles.error} role="alert">
-          <p>{error}</p>
-          <p>Por favor, recarga la página para intentar nuevamente.</p>
-        </div>
-      )}
+      <div className={styles.layout}>
+        <WorldClocks timezones={TIMEZONES_LEFT} title="🌍 Europa/USA" />
 
-      {loading && !noticias.length ? (
-        <div className={styles.loading}>Cargando noticias…</div>
-      ) : (
-        <div className={styles.newsGrid} role="list">
-          {noticiasFiltradas.map((noticia) => (
-            <NoticiaCard key={noticia.id} noticia={noticia} />
-          ))}
-        </div>
-      )}
+        <main className={styles.mainContent}>
+          {error && (
+            <div className={styles.error} role="alert">
+              <p>{error}</p>
+              <p>Por favor, recarga la página para intentar nuevamente.</p>
+            </div>
+          )}
 
-      {!loading && !error && noticiasFiltradas.length === 0 && (
-        <p className={styles.empty}>
-          {searchTerm 
-            ? `No se encontraron noticias para "${searchTerm}"`
-            : 'No se encontraron noticias disponibles.'}
-        </p>
-      )}
+          {loading && !noticias.length ? (
+            <div className={styles.loading}>Cargando noticias…</div>
+          ) : (
+            <div className={styles.newsGrid} role="list">
+              {noticiasFiltradas.map((noticia) => (
+                <NoticiaCard key={noticia.id} noticia={noticia} />
+              ))}
+            </div>
+          )}
+
+          {!loading && !error && noticiasFiltradas.length === 0 && (
+            <p className={styles.empty}>
+              {searchTerm 
+                ? `No se encontraron noticias para "${searchTerm}"`
+                : 'No se encontraron noticias disponibles.'}
+            </p>
+          )}
+        </main>
+
+        <WorldClocks timezones={TIMEZONES_RIGHT} title="🌏 Asia-Pacífico" />
+      </div>
     </div>
   )
 }

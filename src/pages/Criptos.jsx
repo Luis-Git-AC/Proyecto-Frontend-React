@@ -44,7 +44,12 @@ function Criptos() {
             label="Buscar criptomoneda"
             defaultValue={query}
           />
+        </div>
+      </section>
 
+      {lastUpdatedLabel && (
+        <div className={styles.cryptoLastUpdated}>
+          <span>Última actualización: <strong>{lastUpdatedLabel}</strong></span>
           <button
             type="button"
             className={styles.btnRefresh}
@@ -54,12 +59,6 @@ function Criptos() {
             {loading ? 'Actualizando…' : 'Actualizar'}
           </button>
         </div>
-      </section>
-
-      {lastUpdatedLabel && (
-        <p className={styles.cryptoLastUpdated}>
-          Última actualización: <strong>{lastUpdatedLabel}</strong>
-        </p>
       )}
 
       {error && (

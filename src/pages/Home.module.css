@@ -1,5 +1,5 @@
 .container {
-  max-width: 900px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: var(--spacing-xl);
   background: #0f172a;
@@ -27,6 +27,17 @@
   font-size: var(--font-size-base);
   color: #94a3b8;
   font-family: 'Courier New', Courier, monospace;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 240px 1fr 240px;
+  gap: var(--spacing-xl);
+  align-items: start;
+}
+
+.mainContent {
+  min-width: 0;
 }
 
 .newsGrid {
@@ -61,6 +72,17 @@
   gap: var(--spacing-sm);
   margin-bottom: var(--spacing-lg);
   font-family: 'Courier New', Courier, monospace;
+}
+
+@media (max-width: 1024px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+
+  .layout > aside {
+    display: none;
+  }
 }
 
 @media (max-width: 768px) {

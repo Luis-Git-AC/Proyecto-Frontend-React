@@ -83,7 +83,6 @@
   display: none;
 }
 
-/* Variante compacta - estilo CryptoPanic */
 @media (min-width: 769px) {
   .cardLink {
     flex-direction: row;

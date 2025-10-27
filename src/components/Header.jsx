@@ -6,7 +6,7 @@ function Header() {
 
   const isActive = (path) => {
     return location.pathname === path
-      ? `${styles.navLink} ${styles.navLinkActive}` //check
+      ? `${styles.navLink} ${styles.navLinkActive}`
       : styles.navLink
   }
 

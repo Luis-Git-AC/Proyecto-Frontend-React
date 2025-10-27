@@ -72,6 +72,10 @@
   color: var(--text-secondary);
   margin-bottom: var(--spacing-md);
   font-family: var(--font-family-mono);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-md);
 }
 
 .cryptoError {
