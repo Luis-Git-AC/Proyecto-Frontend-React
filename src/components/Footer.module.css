@@ -26,6 +26,18 @@
   margin: 0;
 }
 
+.link {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  font-weight: 600;
+}
+
+.link:hover {
+  color: var(--color-secondary);
+  text-decoration: underline;
+}
+
 .apis::before {
   content: '';
   display: block;
