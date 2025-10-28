@@ -42,12 +42,12 @@ function Home() {
 
       <SearchForm
         onSearch={setSearchTerm}
-        placeholder="Buscar noticias (Bitcoin, Ethereum, DeFi...)"
+        placeholder="Buscar noticias ..."
         label="Buscar noticias"
       />
 
       <div className={styles.layout}>
-        <WorldClocks timezones={TIMEZONES_LEFT} title="🌍 Europa/USA" />
+        <WorldClocks timezones={TIMEZONES_LEFT} title="🌍 Europa/EEUU" />
 
         <main className={styles.mainContent}>
           {error && (

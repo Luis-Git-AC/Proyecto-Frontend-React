@@ -117,7 +117,7 @@
 
 .cryptoGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--spacing-xl);
   margin: var(--spacing-xl) 0;
 }
@@ -134,6 +134,6 @@
 
   .cryptoGrid {
     grid-template-columns: 1fr;
-    gap: var(--spacing-md);
+    gap: var(--spacing-lg);
   }
 }
