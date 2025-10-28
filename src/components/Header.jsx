@@ -15,7 +15,7 @@ function Header() {
       <div className={styles.container}>
         <div className={styles.logo}>
           <Link to="/">
-            <h1>CriptoNews</h1>
+            <h1>CoinHub</h1>
           </Link>
         </div>
         

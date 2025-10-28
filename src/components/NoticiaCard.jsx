@@ -3,9 +3,7 @@ import styles from './NoticiaCard.module.css'
 function NoticiaCard({ noticia }) {
   const {
     titulo,
-    descripcion,
     fecha,
-    imagen,
     moneda
   } = noticia
 
@@ -34,16 +32,6 @@ function NoticiaCard({ noticia }) {
   return (
     <article className={styles.card}>
       <a href={noticia.url} target="_blank" rel="noopener noreferrer" className={styles.cardLink}>
-        <div className={styles.cardImage}>
-          {imagen ? (
-            <img src={imagen} alt={titulo} />
-          ) : (
-            <div className={styles.imagePlaceholder}>
-              {moneda}
-            </div>
-          )}
-        </div>
-        
         <div className={styles.cardContent}>
           <div className={styles.cardHeader}>
             <span className={styles.monedaTag}>{moneda}</span>
@@ -51,11 +39,6 @@ function NoticiaCard({ noticia }) {
           </div>
           
           <h3 className={styles.titulo}>{titulo}</h3>
-          <p className={styles.descripcion}>{descripcion}</p>
-          
-          <div className={styles.cardFooter}>
-            <span className={styles.leerMas}>Leer artículo completo →</span>
-          </div>
         </div>
       </a>
     </article>

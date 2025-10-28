@@ -40,7 +40,7 @@ function Criptos() {
         <div className={styles.cryptoActions}>
           <SearchForm
             onSearch={setQuery}
-            placeholder="Buscar por nombre o símbolo"
+            placeholder="Buscar..."
             label="Buscar criptomoneda"
             defaultValue={query}
           />
