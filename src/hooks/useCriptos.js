@@ -67,6 +67,31 @@ function useCriptos() {
 
   useEffect(() => {
     loadCoins()
+
+    let interval
+
+    const startPolling = () => {
+      interval = setInterval(() => {
+        loadCoins({ ignoreCache: true })
+      }, 60000)
+    }
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        if (interval) clearInterval(interval)
+      } else {
+        loadCoins({ ignoreCache: true })
+        startPolling()
+      }
+    }
+
+    startPolling()
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
+    return () => {
+      if (interval) clearInterval(interval)
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+    }
   }, [loadCoins])
 
   const refresh = useCallback(() => {

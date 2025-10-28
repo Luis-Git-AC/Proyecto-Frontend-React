@@ -34,7 +34,7 @@ function Criptos() {
       <section className={styles.cryptoHeader}>
         <div>
           <h1>Criptomonedas Top 20</h1>
-          <p>Datos en tiempo real desde CoinGecko</p>
+          <p>Actualización de precios cada 1 min - CoinGecko</p>
         </div>
 
         <div className={styles.cryptoActions}>

@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import CoinCard from '../components/CoinCard'
 import usePortfolio from '../hooks/usePortfolio'
+import useCriptos from '../hooks/useCriptos'
 import styles from './Portfolio.module.css'
 
 function formatCurrency(value) {
@@ -12,11 +13,22 @@ function formatCurrency(value) {
 }
 
 function Portfolio() {
-  const { portfolio, removeCoin, clearPortfolio } = usePortfolio()
+  const { portfolio, removeCoin, clearPortfolio, updateCoinQuantity } = usePortfolio()
+  const { coins } = useCriptos()
+
+  const portfolioWithFreshPrices = useMemo(() => {
+    return portfolio.map(saved => {
+      const fresh = coins.find(c => c.id === saved.id)
+      return fresh ? { ...fresh, cantidad: saved.cantidad } : saved
+    })
+  }, [portfolio, coins])
 
   const totalValue = useMemo(() => {
-    return portfolio.reduce((acc, coin) => acc + (coin.currentPrice ?? 0), 0)
-  }, [portfolio])
+    return portfolioWithFreshPrices.reduce((acc, coin) => {
+      const cantidad = coin.cantidad ?? 1
+      return acc + (coin.currentPrice ?? 0) * cantidad
+    }, 0)
+  }, [portfolioWithFreshPrices])
 
   return (
     <div className={styles.container}>
@@ -47,12 +59,13 @@ function Portfolio() {
         </section>
       ) : (
         <section className={styles.cryptoGrid} role="list">
-          {portfolio.map((coin) => (
+          {portfolioWithFreshPrices.map((coin) => (
             <CoinCard
               key={coin.id}
               coin={coin}
               isInPortfolio
               onTogglePortfolio={() => removeCoin(coin.id)}
+              onUpdateQuantity={(newQuantity) => updateCoinQuantity(coin.id, newQuantity)}
             />
           ))}
         </section>

@@ -34,7 +34,8 @@ function sanitizeCoin(coin) {
     marketCap,
     marketCapRank,
     priceChangePercentage24h,
-    totalVolume
+    totalVolume,
+    cantidad
   } = coin
 
   return {
@@ -47,6 +48,7 @@ function sanitizeCoin(coin) {
     marketCapRank,
     priceChangePercentage24h,
     totalVolume,
+    cantidad: cantidad || 1,
     addedAt: Date.now()
   }
 }
@@ -93,6 +95,19 @@ function PortfolioProvider({ children }) {
     setPortfolio([])
   }, [])
 
+  const updateCoinQuantity = useCallback((coinId, newQuantity) => {
+    setPortfolio((prev) =>
+      prev.map((coin) => {
+        if (coin.id === coinId) {
+          const parsedValue = parseFloat(newQuantity)
+          const cantidad = isNaN(parsedValue) ? 0 : Math.max(0, parsedValue)
+          return { ...coin, cantidad }
+        }
+        return coin
+      })
+    )
+  }, [])
+
   const value = useMemo(
     () => ({
       portfolio,
@@ -100,9 +115,10 @@ function PortfolioProvider({ children }) {
       removeCoin,
       toggleCoin,
       clearPortfolio,
+      updateCoinQuantity,
       isInPortfolio
     }),
-    [portfolio, addCoin, removeCoin, toggleCoin, clearPortfolio, isInPortfolio]
+    [portfolio, addCoin, removeCoin, toggleCoin, clearPortfolio, updateCoinQuantity, isInPortfolio]
   )
 
   return (
