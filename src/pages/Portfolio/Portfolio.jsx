@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
-import CoinCard from '../components/CoinCard/CoinCard'
-import usePortfolio from '../hooks/usePortfolio'
-import useCriptos from '../hooks/useCriptos'
+import CoinCard from '../../components/CoinCard/CoinCard'
+import usePortfolio from '../../hooks/usePortfolio'
+import useCriptos from '../../hooks/useCriptos'
 import styles from './Portfolio.module.css'
 
 function formatCurrency(value) {

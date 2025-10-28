@@ -1,8 +1,8 @@
 import { useState, useMemo } from 'react'
-import useNoticias from '../hooks/useNoticias'
-import NoticiaCard from '../components/NoticiaCard/NoticiaCard'
-import { SearchForm } from '../components/SearchForm/SearchForm'
-import WorldClocks from '../components/WorldClocks/WorldClocks'
+import useNoticias from '../../hooks/useNoticias'
+import NoticiaCard from '../../components/NoticiaCard/NoticiaCard'
+import { SearchForm } from '../../components/SearchForm/SearchForm'
+import WorldClocks from '../../components/WorldClocks/WorldClocks'
 import styles from './Home.module.css'
 
 const TIMEZONES_LEFT = [

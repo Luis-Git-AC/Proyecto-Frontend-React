@@ -1,7 +1,7 @@
-import useCriptos from '../hooks/useCriptos'
-import CoinCard from '../components/CoinCard/CoinCard'
-import usePortfolio from '../hooks/usePortfolio'
-import { SearchForm } from '../components/SearchForm/SearchForm'
+import useCriptos from '../../hooks/useCriptos'
+import CoinCard from '../../components/CoinCard/CoinCard'
+import usePortfolio from '../../hooks/usePortfolio'
+import { SearchForm } from '../../components/SearchForm/SearchForm'
 import styles from './Criptos.module.css'
 
 function Criptos() {

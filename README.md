@@ -34,7 +34,7 @@ APIs: CoinGecko, CryptoPanic
 
 **1. Web full responsive:** CSS Grid/Flexbox con media queries
 
-**2. Arquitectura:** Carpetas components, pages, hooks, context, services, styles
+**2. Arquitectura:** Estructurado por componentes. Cada componente y página en su propia carpeta con su CSS Module
 
 **3. Mínimo 3 páginas + Router:** Home, Criptos, Portfolio, DetalleNoticia con React Router v6
 
