@@ -9,6 +9,20 @@ function formatCurrency(value) {
   }).format(value)
 }
 
+function formatCompactCurrency(value) {
+  if (value == null) return 'N/A'
+  try {
+    return new Intl.NumberFormat('en-US', {
+      notation: 'compact',
+      maximumFractionDigits: 2,
+      style: 'currency',
+      currency: 'USD'
+    }).format(value)
+  } catch {
+    return formatCurrency(value)
+  }
+}
+
 function formatPercentage(value) {
   if (value == null) return 'N/A'
   const formatter = new Intl.NumberFormat('en-US', {
@@ -127,11 +141,23 @@ function CoinCard({ coin, isInPortfolio = false, onTogglePortfolio, onUpdateQuan
       <footer className={styles.footer}>
         <div>
           <span className={styles.label}>Market Cap</span>
-          <span className={styles.value}>{formatCurrency(coin.marketCap)}</span>
+          <span
+            className={styles.value}
+            title={formatCurrency(coin.marketCap)}
+            aria-label={formatCurrency(coin.marketCap)}
+          >
+            {formatCompactCurrency(coin.marketCap)}
+          </span>
         </div>
         <div>
           <span className={styles.label}>Volumen 24h</span>
-          <span className={styles.value}>{formatCurrency(coin.totalVolume)}</span>
+          <span
+            className={styles.value}
+            title={formatCurrency(coin.totalVolume)}
+            aria-label={formatCurrency(coin.totalVolume)}
+          >
+            {formatCompactCurrency(coin.totalVolume)}
+          </span>
         </div>
       </footer>
     </article>
