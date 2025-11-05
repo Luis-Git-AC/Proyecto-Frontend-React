@@ -57,7 +57,7 @@
 }
 
 .name {
-  font-size: var(--font-size-xl);
+  font-size: 0.65rem;
   color: var(--text-primary);
   overflow: hidden;
   text-overflow: ellipsis;
